@@ -196,10 +196,10 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-gray-300 font-bold mb-2">Additional Characters</label>
-                    <input type="number" id="additionalCharacters" name="additional_characters" min="0" max="10" value="0" 
+                    <label class="block text-gray-300 font-bold mb-2">Character(s)</label>
+                    <input type="number" id="characters" name="characters" min="1" max="10" value="1" 
                            class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
-                    <p class="text-gray-400 text-sm mt-1">$1 per additional character</p>
+                    <p class="text-gray-400 text-sm mt-1">First character free, $1 per additional character</p>
                 </div>
 
                 <div class="mb-6 p-4 bg-gray-800 rounded border border-purple-500">
@@ -250,7 +250,7 @@
             const workType = document.getElementById('workType').value;
             const composition = document.getElementById('composition').value;
             const hasBackground = document.getElementById('background').checked;
-            const additionalCharacters = parseInt(document.getElementById('additionalCharacters').value) || 0;
+            const characters = parseInt(document.getElementById('characters').value) || 1;
             const priceDisplay = document.getElementById('priceDisplay');
             const backgroundCheckbox = document.getElementById('background');
             const backgroundOption = document.getElementById('backgroundOption');
@@ -272,7 +272,7 @@
 
             let basePrice = commissionPrices[workType][composition];
             let backgroundPrice = (hasBackground && workType === 'colored') ? 5 : 0;
-            let characterPrice = additionalCharacters * 1;
+            let characterPrice = Math.max(0, characters - 1) * 1;
             let total = basePrice + backgroundPrice + characterPrice;
 
             priceDisplay.textContent = '$' + total;
