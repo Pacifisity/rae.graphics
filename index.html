@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rae Portfolio</title>
+    <title>Rae's Graphics</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -153,7 +154,7 @@
     <!-- Contact Section -->
     <section id="contact" class="py-16 px-6 bg-gray-950">
         <div class="max-w-2xl mx-auto">
-            <h3 class="text-5xl font-bold text-center mb-4 text-purple-400">Requests</h3>
+            <h3 class="text-5xl font-bold text-center mb-4 text-purple-400">Contact</h3>
             <p class="text-center text-gray-300 mb-8">Prefer Discord? Send a friend request to <span class="text-purple-400 font-semibold">@_raymon.d</span> or use the form below!</p>
             <form action="https://formspree.io/f/mrearaak" method="POST" class="bg-gray-900 rounded-lg p-8 border border-gray-800">
                 <div class="mb-6">
@@ -216,7 +217,7 @@
 
                 <button type="submit" 
                         class="w-full bg-gradient-to-r from-purple-500 to-pink-500 font-bold py-3 rounded hover:shadow-lg hover:shadow-purple-500/50 transition">
-                    Send Commission Request
+                    Request Commission
                 </button>
             </form>
         </div>
@@ -242,8 +243,8 @@
     <script>
         // Commission type pricing
         const commissionPrices = {
-            sketch: { shoulder: 7, 'half body': 17 },
-            colored: { shoulder: 10, 'half body': 20 }
+            sketch: { 'shoulder up': 7, 'half body': 17 },
+            'colored and rendered': { 'shoulder up': 10, 'half body': 20 }
         };
 
         function updatePrice() {
@@ -256,7 +257,7 @@
             const backgroundOption = document.getElementById('backgroundOption');
 
             // Show/hide background option based on work type
-            if (workType === 'colored') {
+            if (workType === 'colored and rendered') {
                 backgroundOption.classList.remove('hidden');
             } else {
                 backgroundOption.classList.add('hidden');
@@ -271,7 +272,7 @@
             }
 
             let basePrice = commissionPrices[workType][composition];
-            let backgroundPrice = (hasBackground && workType === 'colored') ? 5 : 0;
+            let backgroundPrice = (hasBackground && workType === 'colored and rendered') ? 5 : 0;
             let characterPrice = Math.max(0, characters - 1) * 1;
             let total = basePrice + backgroundPrice + characterPrice;
 
