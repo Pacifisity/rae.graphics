@@ -170,11 +170,11 @@
 
                 <div class="mb-6">
                     <label class="block text-gray-300 font-bold mb-2">Work Type</label>
-                    <select id="workType" name="work_type" required 
+                    <select id="workType" name="type" required 
                             class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
                         <option value="">Select type...</option>
                         <option value="sketch">Sketch (Uncolored)</option>
-                        <option value="colored">Colored</option>
+                        <option value="colored and rendered">Colored and Rendered</option>
                     </select>
                 </div>
 
@@ -183,8 +183,8 @@
                     <select id="composition" name="composition" required 
                             class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
                         <option value="">Select composition...</option>
-                        <option value="shoulder">Shoulder Up</option>
-                        <option value="half">Half Body</option>
+                        <option value="shoulder up">Shoulder Up</option>
+                        <option value="half body">Half Body</option>
                     </select>
                 </div>
 
@@ -205,11 +205,12 @@
                 <div class="mb-6 p-4 bg-gray-800 rounded border border-purple-500">
                     <p class="text-gray-300 mb-2">Estimated Total:</p>
                     <p class="text-3xl font-bold text-purple-400" id="priceDisplay">$0</p>
+                    <input type="hidden" id="totalPrice" name="total_price" value="0">
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-gray-300 font-bold mb-2">Message</label>
-                    <textarea name="message" rows="5" required 
+                    <label class="block text-gray-300 font-bold mb-2">Description</label>
+                    <textarea name="description" rows="5" required 
                               class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition resize-none"></textarea>
                 </div>
 
@@ -241,8 +242,8 @@
     <script>
         // Commission type pricing
         const commissionPrices = {
-            sketch: { shoulder: 7, half: 17 },
-            colored: { shoulder: 10, half: 20 }
+            sketch: { shoulder: 7, 'half body': 17 },
+            colored: { shoulder: 10, 'half body': 20 }
         };
 
         function updatePrice() {
@@ -265,6 +266,7 @@
             // Calculate price
             if (!workType || !composition) {
                 priceDisplay.textContent = '$0';
+                document.getElementById('totalPrice').value = '0';
                 return;
             }
 
@@ -274,6 +276,7 @@
             let total = basePrice + backgroundPrice + characterPrice;
 
             priceDisplay.textContent = '$' + total;
+            document.getElementById('totalPrice').value = total;
         }
 
         // Initialize price display on page load
