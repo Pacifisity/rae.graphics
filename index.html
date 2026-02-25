@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rae Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-950 text-gray-100">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-gray-950 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-purple-400">Rae</h1>
+                <ul class="flex gap-8">
+                    <li><a href="#gallery" class="hover:text-purple-400 transition">Gallery</a></li>
+                    <li><a href="#commissions" class="hover:text-purple-400 transition">Commissions</a></li>
+                    <li><a href="#contact" class="hover:text-purple-400 transition">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 flex items-center justify-center px-6 relative overflow-hidden">
+        <!-- Scattered photo pile background -->
+        <div id="floating-pile" class="absolute inset-0 flex items-center justify-center pointer-events-none" style="z-index: 1;">
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 animate-fade-in">
+                Welcome to Rae's Graphics
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                Sigma indepoendant loyal fun carefree chud unc who enjoys making art for people and is open to communication throughout the process!
+            </p>
+            <button onclick="document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' })" 
+                    class="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition transform hover:scale-105">
+                View Graphics
+            </button>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 px-6 bg-gray-950">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-5xl font-bold text-center mb-12 text-purple-400">Graphics</h3>
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Images will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Commissions Section -->
+    <section id="commissions" class="py-16 px-6 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-5xl font-bold text-center mb-4 text-purple-400">Commission Pricing</h3>
+            <p class="text-center text-gray-300 mb-12 text-lg">Modular pricing - mix and match to customize your commission!</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Sketches (Uncolored) -->
+                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-purple-500 transition hover:shadow-lg hover:shadow-purple-500/20 flex flex-col">
+                    <h4 class="text-3xl font-bold text-purple-400 mb-6">Sketches</h4>
+                    <p class="text-gray-300 text-sm mb-6 italic">Uncolored line work</p>
+                    
+                    <div class="space-y-4 flex-grow">
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+                            <span class="text-gray-300">Shoulder Up</span>
+                            <span class="text-2xl font-bold text-purple-400">$7</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+                            <span class="text-gray-300">Half Body</span>
+                            <span class="text-2xl font-bold text-purple-400">$17</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Additional Character</span>
+                            <span class="text-2xl font-bold text-purple-400">+$1</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" 
+                            class="w-full bg-purple-600 hover:bg-purple-700 py-3 rounded font-bold transition mt-8">
+                        Request Commission
+                    </button>
+                </div>
+
+                <!-- Colored Works -->
+                <div class="bg-gray-800 rounded-lg p-8 border-2 border-purple-500 hover:shadow-lg hover:shadow-purple-500/40 transition">
+                    <div class="bg-purple-600 text-white text-center py-2 rounded mb-4 text-sm font-bold">$3 MORE THAN SKETCHES</div>
+                    <h4 class="text-3xl font-bold text-purple-400 mb-6">Colored Works</h4>
+                    <p class="text-gray-300 text-sm mb-6 italic">Fully colored and rendered</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+                            <span class="text-gray-300">Shoulder Up</span>
+                            <span class="text-2xl font-bold text-pink-400">$10</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+                            <span class="text-gray-300">Half Body</span>
+                            <span class="text-2xl font-bold text-pink-400">$20</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+                            <span class="text-gray-300">Background (add-on)</span>
+                            <span class="text-2xl font-bold text-pink-400">+$5</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Additional Character</span>
+                            <span class="text-2xl font-bold text-pink-400">+$1</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" 
+                            class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 py-3 rounded font-bold transition mt-8">
+                        Request Commission
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Pricing Examples -->
+            <div class="mt-12 bg-gray-800 rounded-lg p-8 border border-gray-700">
+                <h5 class="text-2xl font-bold text-purple-400 mb-6">Example Commissions</h5>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-300">
+                    <div class="flex items-start">
+                        <span class="text-purple-400 mr-3 text-lg">→</span>
+                        <div>
+                            <p class="font-bold">Simple Sketch</p>
+                            <p class="text-sm text-gray-400">Shoulder up, uncolored: <span class="text-purple-400">$7</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-pink-400 mr-3 text-lg">→</span>
+                        <div>
+                            <p class="font-bold">Full Character + Background</p>
+                            <p class="text-sm text-gray-400">Half body colored + background: <span class="text-pink-400">$25</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-pink-400 mr-3 text-lg">→</span>
+                        <div>
+                            <p class="font-bold">Group Commission</p>
+                            <p class="text-sm text-gray-400">Half body colored, 3 characters: <span class="text-pink-400">$22</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-6 bg-gray-950">
+        <div class="max-w-2xl mx-auto">
+            <h3 class="text-5xl font-bold text-center mb-12 text-purple-400">Get in Touch</h3>
+            <form action="https://formspree.io/f/mrearaak" method="POST" class="bg-gray-900 rounded-lg p-8 border border-gray-800">
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2">Your Name</label>
+                    <input type="text" name="name" required 
+                           class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2">Email Address</label>
+                    <input type="email" name="email" required 
+                           class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2">Work Type</label>
+                    <select id="workType" name="work_type" required 
+                            class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
+                        <option value="">Select type...</option>
+                        <option value="sketch">Sketch (Uncolored)</option>
+                        <option value="colored">Colored</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2">Composition</label>
+                    <select id="composition" name="composition" required 
+                            class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
+                        <option value="">Select composition...</option>
+                        <option value="shoulder">Shoulder Up</option>
+                        <option value="half">Half Body</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-center text-gray-300 font-bold">
+                        <input type="checkbox" id="background" name="background" class="mr-3 w-4 h-4 cursor-pointer" onchange="updatePrice()" disabled>
+                        <span class="cursor-pointer">Add Background (+$5)</span>
+                    </label>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2">Additional Characters</label>
+                    <input type="number" id="additionalCharacters" name="additional_characters" min="0" max="10" value="0" 
+                           class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
+                    <p class="text-gray-400 text-sm mt-1">$1 per additional character</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-800 rounded border border-purple-500">
+                    <p class="text-gray-300 mb-2">Estimated Total:</p>
+                    <p class="text-3xl font-bold text-purple-400" id="priceDisplay">$0</p>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2">Message</label>
+                    <textarea name="message" rows="5" required 
+                              class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition resize-none"></textarea>
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-purple-500 to-pink-500 font-bold py-3 rounded hover:shadow-lg hover:shadow-purple-500/50 transition">
+                    Send Commission Request
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-8 px-6 text-center text-gray-400">
+        <p class="mb-2">&copy; 2026 Rae. All rights reserved.</p>
+        <p class="text-sm text-gray-500">Artwork you commission may be used personally and commercially but cannot be claimed as your own original work.</p>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="hidden fixed inset-0 bg-black bg-opacity-90 z-40 flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-5xl max-h-full" onclick="event.stopPropagation()">
+            <img id="lightbox-image" src="" alt="Portfolio" class="max-w-full max-h-screen object-contain">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-400 transition">&times;</button>
+            <button onclick="previousImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400 transition">&lt;</button>
+            <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-400 transition">&gt;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Commission type pricing
+        const commissionPrices = {
+            sketch: { shoulder: 7, half: 17 },
+            colored: { shoulder: 10, half: 20 }
+        };
+
+        function updatePrice() {
+            const workType = document.getElementById('workType').value;
+            const composition = document.getElementById('composition').value;
+            const hasBackground = document.getElementById('background').checked;
+            const additionalCharacters = parseInt(document.getElementById('additionalCharacters').value) || 0;
+            const priceDisplay = document.getElementById('priceDisplay');
+            const backgroundCheckbox = document.getElementById('background');
+
+            // Enable/disable background checkbox based on work type
+            if (workType === 'sketch') {
+                backgroundCheckbox.disabled = true;
+                backgroundCheckbox.checked = false;
+            } else if (workType === 'colored') {
+                backgroundCheckbox.disabled = false;
+            }
+
+            // Calculate price
+            if (!workType || !composition) {
+                priceDisplay.textContent = '$0';
+                return;
+            }
+
+            let basePrice = commissionPrices[workType][composition];
+            let backgroundPrice = (hasBackground && workType === 'colored') ? 5 : 0;
+            let characterPrice = additionalCharacters * 1;
+            let total = basePrice + backgroundPrice + characterPrice;
+
+            priceDisplay.textContent = '$' + total;
+        }
+
+        // Initialize price display on page load
+        document.addEventListener('DOMContentLoaded', updatePrice);
+
+        // Load all portfolio images as photo pile
+        function loadFloatingArt() {
+            const pile = document.getElementById('floating-pile');
+            let imageNumber = 1;
+            const checkLimit = 100;
+            let checked = 0;
+
+            function tryLoadImage() {
+                if (imageNumber > checkLimit) {
+                    // Done checking, randomize positions
+                    randomizeAllPositions();
+                    return;
+                }
+
+                const imagePath = `./portfolio/${imageNumber}.jpg`;
+                const testImg = new Image();
+
+                testImg.onload = function() {
+                    // Image exists, add it to the pile
+                    const container = document.createElement('div');
+                    container.className = 'absolute floating-art';
+                    container.style.left = '50%';
+                    container.style.top = '50%';
+                    container.style.transformOrigin = 'center';
+
+                    const img = document.createElement('img');
+                    img.src = imagePath;
+                    img.alt = `Portfolio ${imageNumber}`;
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 0.6s ease';
+                    img.className = 'w-full h-full object-contain';
+
+                    container.appendChild(img);
+                    pile.appendChild(container);
+
+                    // Trigger fade-in
+                    setTimeout(() => {
+                        img.style.opacity = '1';
+                    }, 0);
+
+                    imageNumber++;
+                    tryLoadImage();
+                };
+
+                testImg.onerror = function() {
+                    imageNumber++;
+                    tryLoadImage();
+                };
+
+                testImg.src = imagePath;
+            }
+
+            tryLoadImage();
+        }
+
+        // Randomize positions for all images in the pile
+        function randomizeAllPositions() {
+            const pile = document.getElementById('floating-pile');
+            const containers = pile.querySelectorAll('.floating-art');
+
+            containers.forEach((item, index) => {
+                // Random position around center (within large range)
+                const randomX = (Math.random() - 0.5) * 1000;
+                const randomY = (Math.random() - 0.5) * 1000;
+                // Random rotation between -35 and 35 degrees
+                const randomRotation = (Math.random() - 0.5) * 70;
+                // Vary sizes
+                const scale = 0.5 + Math.random() * 0.7;
+                
+                item.style.transform = `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) rotate(${randomRotation}deg) scale(${scale})`;
+                item.style.zIndex = index;
+            });
+        }
+
+        // Load floating art when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFloatingArt();
+        });
+    </script>
+</body>
+</html>
