@@ -300,72 +300,45 @@
         // Initialize price display on page load
         document.addEventListener('DOMContentLoaded', updatePrice);
 
-        // Load all portfolio images as photo pile
-        function loadFloatingArt() {
-            const pile = document.getElementById('floating-pile');
-            let imageNumber = 1;
-            let loadedCount = 0;
-            const checkLimit = 100;
-
-            function tryLoadImage() {
-                if (imageNumber > checkLimit) {
-                    return;
-                }
-
-                const imagePath = `./portfolio/${imageNumber}.jpg`;
-                const testImg = new Image();
-
-                testImg.onload = function() {
-                    // Image exists, add it to the pile
-                    const container = document.createElement('div');
-                    container.className = 'absolute floating-art';
-                    container.style.left = '50%';
-                    container.style.top = '50%';
-                    container.style.transformOrigin = 'center';
-
-                    // Randomize position immediately
-                    const randomX = (Math.random() - 0.5) * 1000;
-                    const randomY = (Math.random() - 0.5) * 1000;
-                    const randomRotation = (Math.random() - 0.5) * 70;
-                    const scale = 0.5 + Math.random() * 0.7;
-                    
-                    container.style.transform = `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) rotate(${randomRotation}deg) scale(${scale})`;
-                    container.style.zIndex = loadedCount;
-
-                    const img = document.createElement('img');
-                    img.src = imagePath;
-                    img.alt = `Portfolio ${imageNumber}`;
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.6s ease';
-                    img.className = 'w-full h-full object-contain';
-
-                    container.appendChild(img);
-                    pile.appendChild(container);
-
-                    // Trigger fade-in
-                    setTimeout(() => {
-                        img.style.opacity = '1';
-                    }, 50);
-
-                    loadedCount++;
-                    imageNumber++;
-                    tryLoadImage();
-                };
-
-                testImg.onerror = function() {
-                    imageNumber++;
-                    tryLoadImage();
-                };
-
-                testImg.src = imagePath;
-            }
-
-            tryLoadImage();
-        }
-
-        // Load floating art when page loads
+        // Add floating art when images are loaded (reuses the same image loading from script.js)
         document.addEventListener('DOMContentLoaded', function() {
-            loadFloatingArt();
+            const pile = document.getElementById('floating-pile');
+            let loadedCount = 0;
+
+            // Hook into the image loader to add floating art
+            onImageLoaded(function(imagePath, imageNumber) {
+                const container = document.createElement('div');
+                container.className = 'absolute floating-art';
+                container.style.left = '50%';
+                container.style.top = '50%';
+                container.style.transformOrigin = 'center';
+
+                // Randomize position immediately
+                const randomX = (Math.random() - 0.5) * 1000;
+                const randomY = (Math.random() - 0.5) * 1000;
+                const randomRotation = (Math.random() - 0.5) * 70;
+                const scale = 0.5 + Math.random() * 0.7;
+                
+                container.style.transform = `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) rotate(${randomRotation}deg) scale(${scale})`;
+                container.style.zIndex = loadedCount;
+
+                const img = document.createElement('img');
+                img.src = imagePath;
+                img.alt = `Portfolio ${imageNumber}`;
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.6s ease';
+                img.className = 'w-full h-full object-contain';
+
+                container.appendChild(img);
+                pile.appendChild(container);
+
+                // Trigger fade-in
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                }, 50);
+
+                loadedCount++;
+            });
         });
     </script>
 </body>

@@ -6,6 +6,14 @@ const LIGHTBOX_IMAGE = document.getElementById('lightbox-image');
 
 let loadedImages = [];
 let currentImageIndex = 0;
+let onImageLoadedCallbacks = [];
+
+/**
+ * Register a callback to be called when each image is loaded
+ */
+function onImageLoaded(callback) {
+    onImageLoadedCallbacks.push(callback);
+}
 
 /**
  * Dynamically load portfolio images from the portfolio folder
@@ -14,9 +22,10 @@ let currentImageIndex = 0;
 function loadPortfolioImages() {
     let imageNumber = 1;
     const maxAttempts = 100; // Safety limit to prevent infinite loops
+    let consecutiveFailures = 0;
 
     function loadNextImage() {
-        if (imageNumber > maxAttempts) {
+        if (imageNumber > maxAttempts || consecutiveFailures >= 3) {
             console.log(`Gallery complete. Loaded ${loadedImages.length} images.`);
             return;
         }
@@ -31,14 +40,20 @@ function loadPortfolioImages() {
                 path: imagePath,
                 number: imageNumber
             });
+            
+            // Call registered callbacks
+            onImageLoadedCallbacks.forEach(cb => cb(imagePath, imageNumber));
+            
+            consecutiveFailures = 0;
             imageNumber++;
             loadNextImage(); // Continue to next image
         };
 
         img.onerror = function () {
-            // Image not found, stop loading
-            console.log(`Gallery loaded successfully with ${loadedImages.length} images.`);
-            return;
+            // Image not found, increment counter
+            consecutiveFailures++;
+            imageNumber++;
+            loadNextImage();
         };
 
         img.src = imagePath;
