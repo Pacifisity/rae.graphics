@@ -28,9 +28,9 @@
         <div id="floating-pile" class="absolute inset-0 flex items-center justify-center pointer-events-none" style="z-index: 1;">
         </div>
 
-        <div class="max-w-4xl mx-auto text-center relative z-10">
+        <div class="max-w-4xl mx-auto text-center relative z-10 px-8 py-12 rounded-2xl" style="background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(10px);">
             <h2 class="text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 animate-fade-in">
-                Welcome to Rae's Graphics
+                Rae's Graphics
             </h2>
             <p class="text-xl text-gray-300 mb-8 leading-relaxed">
                 Sigma indepoendant loyal fun carefree chud unc who enjoys making art for people and is open to communication throughout the process!
@@ -46,7 +46,7 @@
     <section id="gallery" class="py-16 px-6 bg-gray-950">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-5xl font-bold text-center mb-12 text-purple-400">Graphics</h3>
-            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="gallery-grid" class="flex flex-wrap justify-center gap-8">
                 <!-- Images will be dynamically loaded here -->
             </div>
         </div>
@@ -56,7 +56,8 @@
     <section id="commissions" class="py-16 px-6 bg-gray-900">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-5xl font-bold text-center mb-4 text-purple-400">Commission Pricing</h3>
-            <p class="text-center text-gray-300 mb-12 text-lg">Modular pricing - mix and match to customize your commission!</p>
+            <p class="text-center text-gray-300 mb-2 text-lg">Modular pricing - mix and match to customize your commission!</p>
+            <p class="text-center text-gray-400 text-sm mb-12">💳 Payment accepted via <span class="text-purple-400 font-semibold">PayPal</span> and <span class="text-purple-400 font-semibold">CashApp</span> only</p>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
@@ -152,7 +153,8 @@
     <!-- Contact Section -->
     <section id="contact" class="py-16 px-6 bg-gray-950">
         <div class="max-w-2xl mx-auto">
-            <h3 class="text-5xl font-bold text-center mb-12 text-purple-400">Get in Touch</h3>
+            <h3 class="text-5xl font-bold text-center mb-4 text-purple-400">Requests</h3>
+            <p class="text-center text-gray-300 mb-8">Prefer Discord? Send a friend request to <span class="text-purple-400 font-semibold">@_raymon.d</span> or use the form below!</p>
             <form action="https://formspree.io/f/mrearaak" method="POST" class="bg-gray-900 rounded-lg p-8 border border-gray-800">
                 <div class="mb-6">
                     <label class="block text-gray-300 font-bold mb-2">Your Name</label>
@@ -186,10 +188,10 @@
                     </select>
                 </div>
 
-                <div class="mb-6">
-                    <label class="flex items-center text-gray-300 font-bold">
-                        <input type="checkbox" id="background" name="background" class="mr-3 w-4 h-4 cursor-pointer" onchange="updatePrice()" disabled>
-                        <span class="cursor-pointer">Add Background (+$5)</span>
+                <div id="backgroundOption" class="mb-6 hidden">
+                    <label class="flex items-center text-gray-300 font-bold cursor-pointer">
+                        <input type="checkbox" id="background" name="background" class="mr-3 w-5 h-5 cursor-pointer" onchange="updatePrice()">
+                        <span>Add Background (+$5)</span>
                     </label>
                 </div>
 
@@ -250,13 +252,14 @@
             const additionalCharacters = parseInt(document.getElementById('additionalCharacters').value) || 0;
             const priceDisplay = document.getElementById('priceDisplay');
             const backgroundCheckbox = document.getElementById('background');
+            const backgroundOption = document.getElementById('backgroundOption');
 
-            // Enable/disable background checkbox based on work type
-            if (workType === 'sketch') {
-                backgroundCheckbox.disabled = true;
+            // Show/hide background option based on work type
+            if (workType === 'colored') {
+                backgroundOption.classList.remove('hidden');
+            } else {
+                backgroundOption.classList.add('hidden');
                 backgroundCheckbox.checked = false;
-            } else if (workType === 'colored') {
-                backgroundCheckbox.disabled = false;
             }
 
             // Calculate price
@@ -280,13 +283,11 @@
         function loadFloatingArt() {
             const pile = document.getElementById('floating-pile');
             let imageNumber = 1;
+            let loadedCount = 0;
             const checkLimit = 100;
-            let checked = 0;
 
             function tryLoadImage() {
                 if (imageNumber > checkLimit) {
-                    // Done checking, randomize positions
-                    randomizeAllPositions();
                     return;
                 }
 
@@ -301,6 +302,15 @@
                     container.style.top = '50%';
                     container.style.transformOrigin = 'center';
 
+                    // Randomize position immediately
+                    const randomX = (Math.random() - 0.5) * 1000;
+                    const randomY = (Math.random() - 0.5) * 1000;
+                    const randomRotation = (Math.random() - 0.5) * 70;
+                    const scale = 0.5 + Math.random() * 0.7;
+                    
+                    container.style.transform = `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) rotate(${randomRotation}deg) scale(${scale})`;
+                    container.style.zIndex = loadedCount;
+
                     const img = document.createElement('img');
                     img.src = imagePath;
                     img.alt = `Portfolio ${imageNumber}`;
@@ -314,8 +324,9 @@
                     // Trigger fade-in
                     setTimeout(() => {
                         img.style.opacity = '1';
-                    }, 0);
+                    }, 50);
 
+                    loadedCount++;
                     imageNumber++;
                     tryLoadImage();
                 };
@@ -329,25 +340,6 @@
             }
 
             tryLoadImage();
-        }
-
-        // Randomize positions for all images in the pile
-        function randomizeAllPositions() {
-            const pile = document.getElementById('floating-pile');
-            const containers = pile.querySelectorAll('.floating-art');
-
-            containers.forEach((item, index) => {
-                // Random position around center (within large range)
-                const randomX = (Math.random() - 0.5) * 1000;
-                const randomY = (Math.random() - 0.5) * 1000;
-                // Random rotation between -35 and 35 degrees
-                const randomRotation = (Math.random() - 0.5) * 70;
-                // Vary sizes
-                const scale = 0.5 + Math.random() * 0.7;
-                
-                item.style.transform = `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) rotate(${randomRotation}deg) scale(${scale})`;
-                item.style.zIndex = index;
-            });
         }
 
         // Load floating art when page loads

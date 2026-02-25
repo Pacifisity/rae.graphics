@@ -34,6 +34,20 @@
     background-color: #1f2937;
     border: 1px solid #374151;
     transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+}
+
+@media (min-width: 768px) {
+    .gallery-item {
+        width: calc(50% - 1rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    .gallery-item {
+        width: calc(33.333% - 1.5rem);
+    }
 }
 
 .gallery-item:hover {
