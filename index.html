@@ -209,9 +209,10 @@
 
                 <div id="backgroundOption" class="mb-6 hidden">
                     <label class="flex items-center text-gray-300 font-bold cursor-pointer">
-                        <input type="checkbox" id="background" name="background" class="mr-3 w-5 h-5 cursor-pointer" onchange="updatePrice()">
+                        <input type="checkbox" id="background" class="mr-3 w-5 h-5 cursor-pointer" onchange="updatePrice()">
                         <span>Add Background (+$5)</span>
                     </label>
+                    <input type="hidden" id="backgroundRequested" name="background_requested" value="No">
                 </div>
 
                 <div class="mb-6">
@@ -273,6 +274,7 @@
             const priceDisplay = document.getElementById('priceDisplay');
             const backgroundCheckbox = document.getElementById('background');
             const backgroundOption = document.getElementById('backgroundOption');
+            const backgroundRequested = document.getElementById('backgroundRequested');
 
             // Show/hide background option based on work type
             if (workType === 'colored and rendered') {
@@ -281,6 +283,9 @@
                 backgroundOption.classList.add('hidden');
                 backgroundCheckbox.checked = false;
             }
+
+            // Always include an explicit Yes/No value in form submissions.
+            backgroundRequested.value = (workType === 'colored and rendered' && hasBackground) ? 'Yes' : 'No';
 
             // Calculate price
             if (!workType || !composition) {
