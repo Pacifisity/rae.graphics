@@ -96,7 +96,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-gray-300">Additional Character</span>
-                            <span class="text-2xl font-bold text-purple-400">+$1</span>
+                            <span class="text-2xl font-bold text-purple-400">+30%</span>
                         </div>
                     </div>
                     
@@ -127,7 +127,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-gray-300">Additional Character</span>
-                            <span class="text-2xl font-bold text-pink-400">+$1</span>
+                            <span class="text-2xl font-bold text-pink-400">+30%</span>
                         </div>
                     </div>
                     
@@ -161,7 +161,7 @@
                         <span class="text-pink-400 mr-3 text-lg">→</span>
                         <div>
                             <p class="font-bold">Group Commission</p>
-                            <p class="text-sm text-gray-400">Half body colored, 3 characters: <span class="text-pink-400">$22</span></p>
+                            <p class="text-sm text-gray-400">Half body colored, 3 characters: <span class="text-pink-400">$32</span></p>
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                     <label class="block text-gray-300 font-bold mb-2">Character(s)</label>
                     <input type="number" id="characters" name="characters" min="1" max="10" value="1" 
                            class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" onchange="updatePrice()">
-                    <p class="text-gray-400 text-sm mt-1">First character free, $1 per additional character</p>
+                          <p class="text-gray-400 text-sm mt-1">Each additional character adds 30% of the base price</p>
                 </div>
 
                 <div class="mb-6 p-4 bg-gray-800 rounded border border-purple-500">
@@ -296,7 +296,7 @@
 
             let basePrice = commissionPrices[workType][composition];
             let backgroundPrice = (hasBackground && workType === 'colored and rendered') ? 5 : 0;
-            let characterPrice = Math.max(0, characters - 1) * 1;
+            let characterPrice = basePrice * 0.3 * Math.max(0, characters - 1);
             let total = basePrice + backgroundPrice + characterPrice;
 
             priceDisplay.textContent = '$' + total;

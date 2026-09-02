@@ -1,8 +1,40 @@
 // Gallery Configuration
-const PORTFOLIO_PATH = './portfolio/';
 const GALLERY_GRID = document.getElementById('gallery-grid');
 const LIGHTBOX = document.getElementById('lightbox');
 const LIGHTBOX_IMAGE = document.getElementById('lightbox-image');
+
+const GALLERY_IMAGES = [
+    { full: './portfolio/main/1.jpg', thumbnail: './portfolio/background/gallery/1.jpg' },
+    { full: './portfolio/main/2.jpg', thumbnail: './portfolio/background/gallery/2.jpg' },
+    { full: './portfolio/main/3.jpg', thumbnail: './portfolio/background/gallery/3.jpg' },
+    { full: './portfolio/main/4.jpg', thumbnail: './portfolio/background/gallery/4.jpg' },
+    { full: './portfolio/main/5.jpg', thumbnail: './portfolio/background/gallery/5.jpg' },
+    { full: './portfolio/main/6.jpg', thumbnail: './portfolio/background/gallery/6.jpg' },
+    { full: './portfolio/main/7.jpg', thumbnail: './portfolio/background/gallery/7.jpg' },
+    { full: './portfolio/main/8.jpg', thumbnail: './portfolio/background/gallery/8.jpg' },
+    { full: './portfolio/main/9.jpg', thumbnail: './portfolio/background/gallery/9.jpg' }
+];
+
+const BACKGROUND_IMAGES = [
+    './portfolio/background/portfolio/1.jpg',
+    './portfolio/background/portfolio/2.jpg',
+    './portfolio/background/portfolio/3.jpg',
+    './portfolio/background/portfolio/4.jpg',
+    './portfolio/background/portfolio/5.jpg',
+    './portfolio/background/portfolio/6.jpg',
+    './portfolio/background/portfolio/7.jpg',
+    './portfolio/background/portfolio/8.jpg',
+    './portfolio/background/portfolio/9.jpg',
+    './portfolio/background/gallery/1.jpg',
+    './portfolio/background/gallery/2.jpg',
+    './portfolio/background/gallery/3.jpg',
+    './portfolio/background/gallery/4.jpg',
+    './portfolio/background/gallery/5.jpg',
+    './portfolio/background/gallery/6.jpg',
+    './portfolio/background/gallery/7.jpg',
+    './portfolio/background/gallery/8.jpg',
+    './portfolio/background/gallery/9.jpg'
+];
 
 let loadedImages = [];
 let currentImageIndex = 0;
@@ -16,64 +48,59 @@ function onImageLoaded(callback) {
 }
 
 /**
- * Dynamically load portfolio images from the portfolio folder
- * Uses a for loop with Image.onload and Image.onerror for graceful fallback
+ * Load the nine images in the top-level portfolio directory into the gallery.
  */
 function loadPortfolioImages() {
-    let imageNumber = 1;
-    const maxAttempts = 100; // Safety limit to prevent infinite loops
-    let consecutiveFailures = 0;
-
-    function loadNextImage() {
-        if (imageNumber > maxAttempts || consecutiveFailures >= 3) {
-            console.log(`Gallery complete. Loaded ${loadedImages.length} images.`);
-            return;
-        }
-
-        const imagePath = `${PORTFOLIO_PATH}${imageNumber}.jpg`;
+    GALLERY_IMAGES.forEach(({ full, thumbnail }, index) => {
         const img = new Image();
 
         img.onload = function () {
-            // Image loaded successfully, add it to the gallery
-            addImageToGallery(imagePath, imageNumber);
+            const imageNumber = index + 1;
+            addImageToGallery(thumbnail, full, imageNumber);
             loadedImages.push({
-                path: imagePath,
+                path: full,
                 number: imageNumber
             });
-            
-            // Call registered callbacks
-            onImageLoadedCallbacks.forEach(cb => cb(imagePath, imageNumber));
-            
-            consecutiveFailures = 0;
-            imageNumber++;
-            loadNextImage(); // Continue to next image
         };
 
         img.onerror = function () {
-            // Image not found, increment counter
-            consecutiveFailures++;
-            imageNumber++;
-            loadNextImage();
+            console.warn(`Unable to load gallery thumbnail: ${thumbnail}`);
+        };
+
+        img.src = thumbnail;
+    });
+}
+
+/**
+ * Load every portfolio image once for the scattered hero background.
+ */
+function loadBackgroundImages() {
+    BACKGROUND_IMAGES.forEach((imagePath, index) => {
+        const img = new Image();
+
+        img.onload = function () {
+            onImageLoadedCallbacks.forEach(callback => callback(imagePath, index + 1));
+        };
+
+        img.onerror = function () {
+            console.warn(`Unable to load background image: ${imagePath}`);
         };
 
         img.src = imagePath;
-    }
-
-    // Start the loading process
-    loadNextImage();
+    });
 }
 
 /**
  * Add a loaded image to the gallery grid
  */
-function addImageToGallery(imagePath, imageNumber) {
+function addImageToGallery(thumbnailPath, imagePath, imageNumber) {
     const galleryItem = document.createElement('div');
     galleryItem.className = 'gallery-item';
     galleryItem.style.aspectRatio = '1';
     galleryItem.onclick = (e) => openLightbox(imagePath, imageNumber - 1);
 
     const img = document.createElement('img');
-    img.src = imagePath;
+    img.src = thumbnailPath;
     img.alt = `Portfolio piece ${imageNumber}`;
     img.loading = 'lazy';
 
@@ -144,4 +171,5 @@ LIGHTBOX.addEventListener('click', function (e) {
 // Initialize gallery on page load
 document.addEventListener('DOMContentLoaded', function () {
     loadPortfolioImages();
+    loadBackgroundImages();
 });
